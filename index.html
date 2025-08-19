@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description" content="Video Demoireing using Focused-Defocused Dual-Camera System">
+  <meta name="keywords" content="Video demoireing, focused-defocused dual camera">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Video Demoireing using Focused-Defocused Dual-Camera System</title>
+
+  <link href="https://fonts.googleapis.com/css?family=Google+Sans|Noto+Sans|Castoro"
+        rel="stylesheet">
+
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+</head>
+<body>
+
+
+<section class="hero">
+  <div class="hero-body">
+    <div class="container is-max-desktop">
+      <div class="columns is-centered">
+        <div class="column has-text-centered">
+          <h1 class="title is-1 publication-title">Video Demoireing using Focused-Defocused Dual-Camera System</h1>
+          <div class="is-size-5 publication-authors">
+
+            <p class="author-block">
+              <b>TPAMI 2025</b>
+              <br> Xuan Dong, Xiangyuan Sun, Xia Wang, Jian Song, Ya Li, Weixin Li <br>
+            </p>
+          
+          </div>
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <span class="link-block">
+                <a href="https://github.com/circle11111/dual_lens_demoireing" class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fab fa-github"></i>
+                  </span>
+                  <span>Code</span>
+                </a>
+              </span>
+              <span class="link-block">
+                <a href="https://arxiv.org/abs/2508.03449" class="external-link button is-normal is-rounded is-dark" target="_blank">
+                  <span class="icon">
+                    <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+            </div>
+          </div>
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">DualReal</h2>
+        <p  style="text-align: center;">
+            <img src="./static/images/real_settings.png" alt="Settings of DualReal" width="800px">
+        </p>
+        <div class="content has-text-justified">
+          <p>
+            To build <b>DualReal</b>, We use a real dual-camera setup (<b>Fig. 1(a)</b>) to collect \(50\) pairs of focused-defocused videos. The resolution is \(1920 \times 1080\). We display images and videos on the LCD screen (<b>Fig. 1(b)</b>) and use the dual-camera to shoot towards the screen to obtain the videos. We use the shutter release cable to ensure synchronization of the two cameras. We use a tripod to fix the two cameras and put them as close as possible, as shown in the dual camera of <b>Fig. 1(a)</b>, to reduce occlusion area between the pair of focused and defocused videos. Because we perform optical flow instead of stereo matching in our framework, we do not require the traditional camera calibration using the checkerboard. The displayed images are from 5K dataset and the displayed videos are from some popular movies. One of the collected frame pairs are shown in <b>Fig. 2</b>.
+          </p>
+        </div>
+        <p  style="text-align: center;">
+            <img src="./static/images/real_frame.png" alt="Example of DualReal" width="800px">
+        </p>
+        <div class="textbox">
+        <p>
+          The original videos are available at 
+          <a href="https://pan.baidu.com/s/1jV8aiL559LtwRMb_nIQu7A?pwd=ekbr" class="link-span">this link</a>
+          .
+        </p>
+      </div>
+      </div>
+    </div>
+
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">DualSynthetic</h2>
+        <div class="content has-text-justified">
+          <p>
+            To build <b>DualSynthetic</b>, we generate the synthetic image pairs by the following steps:
+          </p>
+          <p>
+            (1) Resample the original image into a mosaic of RGB subpixels (modeled as a \(3 \times 3\) grid with [R, G, B; R, G, B; R, G, B]) to simulate the image displayed on the LCD.
+          </p>
+          <p>
+            (2) Apply a random projective transformation to the image to simulate different relative positions and orientations of the display LCD and the camera.
+          </p>
+          <p>
+            (3) Apply Gaussian blur when simulating the defocused camera, where the sigma value of the Gaussian filter is a random value between \(3.2\) and \(4.0\).
+          </p>
+          <p>
+            (4) Resample the image using the Bayer CFA to simulate the RAW data.
+          </p>
+          <p>
+            (5) Apply the demosaic function provided by MATLAB to convert the RAW data into RGB images, and then scale the results to compensate for brightness changes during the processing.
+          </p>
+          <p>
+            (6) Add a foreground to the image (optional). When simulating the defocused camera, we also apply Gaussian blur to the foreground of the defocused image, where the sigma value of the Gaussian filter is a random value between \(2.0\) and \(2.5\).
+          </p>
+          <p>
+            The original image serves as the ground-truth image. We select images from 5K dataset as the background, and collect some cartoon characters from the internet as the foreground. One of the samples in <b>DualSynthetic</b> are shown in <b>Fig. 3</b>.
+          </p>  
+        </div>
+        <div class="content has-text-justified">
+          <p  style="text-align: center;">
+            <img src="./static/images/synthetic_image.png" alt="Example of DualSynthetic" width="1200px">
+          </p>
+        </div>
+        <div class="textbox">
+        <p>
+          The original images are available at 
+          <a href="https://pan.baidu.com/s/1Sv1eva5IjY6NrjN-Ix04ww?pwd=62tn" class="link-span">this link</a>
+          .
+        </p>
+      </div>
+    </div>
+
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">DualSyntheticVideo</h2>
+        <div class="content has-text-justified">
+          <p>
+            The original video frames are from the famous stereo video dataset of <b>Sintel</b>. <b>Sintel</b> consists of \(23\) stereo videos of left view and right view, and each video contains \(20\)-\(50\) frames. In each video, the generation of the first pair of frames is performed according to the steps <b>(1)-(6)</b> above. We add moire patterns to the left view frames and add blur to the right view frames to generate the input focused and defocused frames, respectively. The left view without adding moire patterns are used as ground-truth. The following frames are assumed with small and stable camera motion of the previous frame instead of random motion, and thus the step <b>(2)</b>, i.e. the projective transformation, is not randomly generated. We fix the screen not moved and set a constant translation of the camera for each frame. For each video, the constant translation value is randomly selected between \(5\) and \(20\). One of the samples in <b>DualSyntheticVideo</b> are shown in <b>Fig. 4</b>.
+          </p>
+          <p  style="text-align: center;">
+            <img src="./static/images/synthetic_frame.png" alt="Example of DualSyntheticVideo" width="1200px">
+          </p>          
+        </div>
+      </div>
+    </div>
+        <div class="textbox">
+        <p>
+          The original frames are available at 
+          <a href="https://pan.baidu.com/s/1Xc5YsikoqRBbWXjmckFmPg?pwd=6prt" class="link-span">this link</a>
+          .
+        </p>
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    <pre><code>@ARTICLE{DuDemoire2025,
+  author={Dong, Xuan and Sun, Xiangyuan and Wang, Xia and Song, Jian and Li, Ya and Li, Weixin},
+  journal={IEEE Transactions on Pattern Analysis and Machine Intelligence}, 
+  title={Video Demoireing using Focused-Defocused Dual-Camera System}, 
+  year={2025},
+  volume={},
+  number={},
+  pages={1-15},
+  keywords={Video demoireing; Focused-defocused dual camera},
+  doi={10.1109/TPAMI.2025.3596700}}
+</code></pre>
+  </div>
+</section>
